@@ -1,0 +1,48 @@
+CREATE DATABASE sistemaReserva;
+USE sistemaReserva;
+
+-- Tabela: Cliente
+CREATE TABLE Cliente (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    cpf VARCHAR(14) NOT NULL,
+    cidade VARCHAR(50) NOT NULL,
+    nascimento DATE NOT NULL,
+    email VARCHAR(100) NOT NULL
+);
+
+-- Tabela: Proprietario
+CREATE TABLE Proprietario (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    cpf VARCHAR(14),
+    nome VARCHAR(100),
+    cidade VARCHAR(50),
+    nascimento DATE,
+    email VARCHAR(100),
+    qtde_aptos INT
+);
+
+-- Tabela: Apartamento
+CREATE TABLE Apartamento (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    cidade VARCHAR(100) NOT NULL,
+    bairro VARCHAR(100) NOT NULL,
+    quartos INT NOT NULL,
+    hospedes_max INT NOT NULL,
+    preco FLOAT NOT NULL,
+    descricao VARCHAR(255),
+    proprietario_id INT,
+    FOREIGN KEY (proprietario_id) REFERENCES Proprietario(id)
+);
+
+-- Tabela: Reserva
+CREATE TABLE Reserva (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id_apartamento INT,
+    id_cliente INT,
+    data_inicio DATE NOT NULL,
+    data_fim DATE NOT NULL,
+    FOREIGN KEY (id_apartamento) REFERENCES Apartamento(id),
+    FOREIGN KEY (id_cliente) REFERENCES Cliente(id)
+);
+
